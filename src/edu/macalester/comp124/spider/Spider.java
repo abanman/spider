@@ -57,7 +57,7 @@ public class Spider {
 	 */
 	public void crawl(String beginningUrl) {
         // add the first item to the queue
-		
+		work.add(beginningUrl);
 		while(finished.size() < maxUrls) {
             // Get the next item from the queue
 		    String url = work.poll();
@@ -65,7 +65,9 @@ public class Spider {
 		        break;
 
             // process the page and mark it as finished
-		}
+            processPage(url);
+            finished.add(url);
+        }
 	}
 	
 	/**
@@ -80,11 +82,24 @@ public class Spider {
 		
         for (String link : helper.extractLinks(url, html)) {
             if (!helper.isImage(link)) {
-                // Your work goes here
+                urlCounter.countWord(link);
+                if (!isFinished(link)){
+                    work.add(link);
+                }
             }
         }
 	}
-	
+
+    public boolean isFinished(String url){
+        boolean isInFinished = false;
+        for (String link : finished){
+            if (url.equals(link)){
+                return true;
+
+            }
+        }
+        return isInFinished;
+    }
 	/**
 	 * Returns the number of times the spider encountered
 	 * links to each url.  The url are returned in increasing
