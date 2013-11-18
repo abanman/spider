@@ -1,0 +1,8 @@
+if you want to add multiple things to a data structure at the same time, the structure must be 'THREAD SAFE'
+
+need to use classes from java.util.concurrent
+http://docs.oracle.com/javase/6/docs/api/java/util/concurrent/package-summary.html
+
+also (heavier) can use Collections.synchronizedList(your_list_here)
+
+see BlockingQueue.javadoc

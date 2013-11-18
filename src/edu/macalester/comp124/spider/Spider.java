@@ -56,17 +56,12 @@ public class Spider {
 	 * @param beginningUrl
 	 */
 	public void crawl(String beginningUrl) {
-        // add the first item to the queue
 		work.add(beginningUrl);
 		while(finished.size() < maxUrls) {
-            // Get the next item from the queue
-		    String url = work.poll();
-		    if(url == null)
-		        break;
-
-            // process the page and mark it as finished
-            processPage(url);
-            finished.add(url);
+		    String url = work.remove();
+		    if(!finished.contains(url))
+                processPage(url);
+                finished.add(url);
         }
 	}
 	

@@ -62,9 +62,18 @@ public class ConcurrentSpider implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		
+		//TODO: Make this work.
 		while (urlCount <= maxUrls) {  // each thread does a certain amount of 'work'
-			String url;
+			String url = sharedData.getWork().peek();
+                if (!sharedData.getFinished().contains(url)){
+                    //add url to finished
+                    sharedData.getFinished().add(url);
+                    //process the page.
+                    processPage(url);
+                    //remove that page from work
+                    sharedData.getWork().remove(url);
+                    //add count for url?
+                }
 
 				// you make this work: grab from the work queue and process the page
 
